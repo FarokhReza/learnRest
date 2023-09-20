@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Answer, Question
+from .custome_relational_fields import UserEmailNameRelationalFields
 
 class PersonSerializer(serializers.Serializer):
     # id = serializers.IntegerField()
@@ -10,6 +11,10 @@ class PersonSerializer(serializers.Serializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     answers = serializers.SerializerMethodField()
+    user = UserEmailNameRelationalFields(read_only=True)
+    # user = serializers.StringRelatedField(read_only=True)
+    # user = serializers.SlugRelatedField(read_only=True, slug_field='email')
+    # user = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Question
