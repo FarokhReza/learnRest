@@ -5,6 +5,7 @@ from .models import Person, Question, Answer
 from .serializers import PersonSerializer, QuestionSerializer, AnswerSerializer
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework import status
+from permissions import IsOwnerOrReadOnly
 # @api_view(['GET', 'POST']) # by default is get
 # def home(request):
 #     return Response({'name':'amir'})
@@ -38,6 +39,7 @@ class QuestionListView(APIView):
     
 
 class QuestionCreateView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         srz_data = QuestionSerializer(data=request.data) # or data=request.POST
@@ -50,10 +52,11 @@ class QuestionCreateView(APIView):
     
 
 class QuestionUpdateView(APIView):
-
+    permission_classes = [IsOwnerOrReadOnly]
 
     def put(self, request, pk):
         question = Question.objects.get(pk=pk)
+        self.check_object_permissions(request, question)
         srz_data = QuestionSerializer(instance=question, data=request.data, partial=True)
         if srz_data.is_valid():
             srz_data.save()
