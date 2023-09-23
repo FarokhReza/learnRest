@@ -137,5 +137,21 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    # this will apply on all request we can specialze it with delete below element and using 
+    # it in related view
+
+    # 'DEFAULT_THROTTLE_CLASSES': [
+    #     'rest_framework.throttling.AnonRateThrottle',
+    #     'rest_framework.throttling.UserRateThrottle'
+    # ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle',
+    ],
+
+    'DEFAULT_THROTTLE_RATES': {
+        'questions': '5/minute',
+        # 'anon': '3/hour',
+        # 'user': '10/hour'
+    }
 } 
