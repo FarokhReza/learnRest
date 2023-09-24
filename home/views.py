@@ -12,7 +12,8 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 #     return Response({'name':'amir'})
 
 class Home(APIView):
-    permission_classes = [IsAdminUser]
+    # permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
 
         # 
