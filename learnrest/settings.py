@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
     'rest_framework',
+    'drf_spectacular',
     # 'rest_framework.authtoken',
 
 ]
@@ -156,9 +157,18 @@ REST_FRAMEWORK = {
         'questions': '5/minute',
         # 'anon': '3/hour',
         # 'user': '10/hour'
-    }
+    },
+
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema', 
 } 
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Shop Rest',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    # 'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
 
 
 SIMPLE_JWT = {

@@ -35,6 +35,7 @@ class Home(APIView):
 class QuestionListView(APIView):
 
     # throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    
     throttle_scope = 'questions'
 
     def get(self, request):
@@ -45,7 +46,10 @@ class QuestionListView(APIView):
 
 class QuestionCreateView(APIView):
     permission_classes = [IsAuthenticated]
-
+    '''
+        Create a new question
+    '''
+    serializer_class = QuestionSerializer
     def post(self, request):
         srz_data = QuestionSerializer(data=request.data) # or data=request.POST
 
